@@ -9,11 +9,11 @@
  * freely, subject to the following restrictions:
  *
  * 1. The origin of this software must not be misrepresented; you must not
- *    claim that you wrote the original software. If you use this software
- *    in a product, an acknowledgement in the product documentation would be
- *    appreciated but is not required.
+ *	claim that you wrote the original software. If you use this software
+ *	in a product, an acknowledgement in the product documentation would be
+ *	appreciated but is not required.
  * 2. Altered source versions must be plainly marked as such, and must not be
- *    misrepresented as being the original software.
+ *	misrepresented as being the original software.
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
@@ -30,6 +30,7 @@
 #endif
 
 #include "YSI\y_xml"
+#include "sscanf2"
 
 static const
 	MAP_OBJECT_COUNT = 0,
@@ -89,43 +90,83 @@ public ST_OnMapLoad()
 		{
 			if (!strcmp(key, "rotX", false))
 			{
-				pos_rx = floatstr(val);
+				#if !defined sscanf
+					pos_rx = floatstr(val);
+				#else
+					sscanf(val, "f", pos_rx);
+				#endif
 			}
 			if (!strcmp(key, "rotY", false))
 			{
-				pos_ry = floatstr(val);
+				#if !defined sscanf
+					pos_ry = floatstr(val);
+				#else
+					sscanf(val, "f", pos_ry);
+				#endif
 			}
 			if (!strcmp(key, "rotZ", false))
 			{
-				pos_rz = floatstr(val);
+				#if !defined sscanf
+					pos_rz = floatstr(val);
+				#else
+					sscanf(val, "f", pos_rz);
+				#endif
 			}
 			if (!strcmp(key, "posX", false))
 			{
-				pos_x = floatstr(val);
+				#if !defined sscanf
+					pos_x = floatstr(val);
+				#else
+					sscanf(val, "f", pos_x);
+				#endif
 			}
 			if (!strcmp(key, "posY", false))
 			{
-				pos_y = floatstr(val);
+				#if !defined sscanf
+					pos_y = floatstr(val);
+   				#else
+					sscanf(val, "f", pos_y);
+				#endif
 			}
 			if (!strcmp(key, "posZ", false))
 			{
-				pos_z = floatstr(val);
+				#if !defined sscanf
+					pos_z = floatstr(val);
+				#else
+					sscanf(val, "f", pos_z);
+				#endif
 			}
 			if (!strcmp(key, "dimension", false))
 			{
-				dimension = strval(val);
+				#if !defined sscanf
+					dimension = strval(val);
+				#else
+					sscanf(val, "i", dimension);
+				#endif
 			}
 			if (!strcmp(key, "interior", false))
 			{
-				interior = strval(val);
+				#if !defined sscanf
+					interior = strval(val);
+				#else
+					sscanf(val, "i", interior);
+				#endif
 			}
 			if (!strcmp(key, "model", false))
 			{
-				model = strval(val);
+				#if !defined sscanf
+					model = strval(val);
+				#else
+					sscanf(val, "i", model);
+				#endif
 			}
 			if (!strcmp(key, "doublesided", false))
 			{
-				doublesided = strval(val);
+				#if !defined sscanf
+					doublesided = strval(val);
+				#else
+					sscanf(val, "i", doublesided);
+				#endif
 			}
 			
 			map_data[map_id][MAP_OBJECT_COUNT]++;
