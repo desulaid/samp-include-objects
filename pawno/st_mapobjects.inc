@@ -19,6 +19,10 @@
 
 #include <a_samp>
 
+#include "YSI\y_xml"
+#include "sscanf2"
+#include "streamer"
+
 #if defined st_mapobjects
 	#endinput
 #endif
@@ -28,9 +32,6 @@
 #if !defined MAX_MAPS
 	#define MAX_MAPS 100
 #endif
-
-#include "YSI\y_xml"
-#include "sscanf2"
 
 static const
 	MAP_OBJECT_COUNT = 0,
@@ -48,7 +49,11 @@ stock
 
 	for (new i = map_data[mapid][MAP_OBJECT_COUNT]; i > -1; i--)
 	{
-		DestroyObject(map_data[mapid][MAP_LAST_OBJECT_ID] - i);
+		#if !defined _streamer_included
+			DestroyObject(map_data[mapid][MAP_LAST_OBJECT_ID] - i);
+		#else
+			DestroyDynamicObject(map_data[mapid][MAP_LAST_OBJECT_ID] - i);
+		#endif
 	}
 	map_data[map_id][MAP_LAST_OBJECT_ID] = -1;
 	return 1;
@@ -124,7 +129,7 @@ public ST_OnMapLoad()
 			{
 				#if !defined sscanf
 					pos_y = floatstr(val);
-   				#else
+				#else
 					sscanf(val, "f", pos_y);
 				#endif
 			}
@@ -171,19 +176,32 @@ public ST_OnMapLoad()
 			
 			map_data[map_id][MAP_OBJECT_COUNT]++;
 
-			map_data[map_id][MAP_LAST_OBJECT_ID] = CreateObject(
-				model,
-				pos_x,
-				pos_y,
-				pos_z,
-				pos_rx,
-				pos_ry,
-				pos_rz
-			);
-			
 			#pragma unused dimension
 			#pragma unused interior
 			#pragma unused doublesided
+
+			#if !defined _streamer_included
+				map_data[map_id][MAP_LAST_OBJECT_ID] = CreateObject(
+					model,
+					pos_x,
+					pos_y,
+					pos_z,
+					pos_rx,
+					pos_ry,
+					pos_rz
+				);
+			#else
+				map_data[map_id][MAP_LAST_OBJECT_ID] = CreateDynamicObject(
+					model,
+					pos_x,
+					pos_y,
+					pos_z,
+					pos_rx,
+					pos_ry,
+					pos_rz,
+					.interiorid = interior
+				);
+			#endif
 		}
 	}
 	return 1;
