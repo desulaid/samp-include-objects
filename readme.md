@@ -1,8 +1,20 @@
-# Загрузчик объектов MTA карт
+### Description
+This library will allow you to load MTA map files without converting.
 
-## Содержание
-+ Потом сделаю, хех
+### Uses
+Loading:
+```pwn
+map = LoadFromMapFile("PATH_TO_MAP_FILE");
+```
 
-## Описание
-Это библиотека, с помощью которой необходимость в конвертировании объектов из формата с МТА карт под SA:MP карты отпадает. Библиотека загружает *.map файл, парсит объекты и создает их. Так же карты можно удалять. У каждой карты есть свой идентификатор (далее просто id), по которому они различаются.
-Библиотека не имеет каких-либо зависимостей.
+Destroying:
+```pwn
+DestroyMap(map);
+```
+
+Max maps:
+If you want to change this limit, then define MAX_MAPS before include
+```pwn
+#define MAX_MAPS 100
+#include "st_mapobjects"
+```
