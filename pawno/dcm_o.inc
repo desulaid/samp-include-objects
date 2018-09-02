@@ -105,9 +105,11 @@ public DCMO_OnMapLoad()
 		Float:pos_ry,
 		Float:pos_rz;
 
+	#define DCMO_map_is(%0,%1) (YHash(%0, false, hash_fnv1) == _I@f<%1>)
+	
 	while (XML_GetKeyValue(key, val))
 	{
-		if (!strcmp(key, "rotX", false))
+		if (DCMO_map_is(key, rotX))
 		{
 			#if !defined sscanf
 				pos_rx = floatstr(val);
@@ -115,7 +117,7 @@ public DCMO_OnMapLoad()
 				sscanf(val, "f", pos_rx);
 			#endif
 		}
-		if (!strcmp(key, "rotY", false))
+		if (DCMO_map_is(key, rotY))
 		{
 			#if !defined sscanf
 				pos_ry = floatstr(val);
@@ -123,7 +125,7 @@ public DCMO_OnMapLoad()
 				sscanf(val, "f", pos_ry);
 			#endif
 		}
-		if (!strcmp(key, "rotZ", false))
+		if (DCMO_map_is(key, rotZ))
 		{
 			#if !defined sscanf
 				pos_rz = floatstr(val);
@@ -131,7 +133,7 @@ public DCMO_OnMapLoad()
 				sscanf(val, "f", pos_rz);
 			#endif
 		}
-		if (!strcmp(key, "posX", false))
+		if (DCMO_map_is(key, posX))
 		{
 			#if !defined sscanf
 				pos_x = floatstr(val);
@@ -139,7 +141,7 @@ public DCMO_OnMapLoad()
 				sscanf(val, "f", pos_x);
 			#endif
 		}
-		if (!strcmp(key, "posY", false))
+		if (DCMO_map_is(key, posY))
 		{
 			#if !defined sscanf
 				pos_y = floatstr(val);
@@ -147,7 +149,7 @@ public DCMO_OnMapLoad()
 				sscanf(val, "f", pos_y);
 			#endif
 		}
-		if (!strcmp(key, "posZ", false))
+		if (DCMO_map_is(key, posZ))
 		{
 			#if !defined sscanf
 				pos_z = floatstr(val);
@@ -155,7 +157,7 @@ public DCMO_OnMapLoad()
 				sscanf(val, "f", pos_z);
 			#endif
 		}
-		if (!strcmp(key, "dimension", false))
+		if (DCMO_map_is(key, dimension))
 		{
 			#if !defined sscanf
 				dimension = strval(val);
@@ -163,7 +165,7 @@ public DCMO_OnMapLoad()
 				sscanf(val, "i", dimension);
 			#endif
 		}
-		if (!strcmp(key, "interior", false))
+		if (DCMO_map_is(key, interior))
 		{
 			#if !defined sscanf
 				interior = strval(val);
@@ -171,7 +173,7 @@ public DCMO_OnMapLoad()
 				sscanf(val, "i", interior);
 			#endif
 		}
-		if (!strcmp(key, "model", false))
+		if (DCMO_map_is(key, model))
 		{
 			#if !defined sscanf
 				model = strval(val);
@@ -179,7 +181,7 @@ public DCMO_OnMapLoad()
 				sscanf(val, "i", model);
 			#endif
 		}
-		if (!strcmp(key, "doublesided", false))
+		if (DCMO_map_is(key, doublesided))
 		{
 			#if !defined sscanf
 				doublesided = strval(val);
@@ -228,5 +230,7 @@ public DCMO_OnMapLoad()
 			#endif
 		#endif
 	}
+
+	#undef DCMO_map_is
 	return 1;
 }
