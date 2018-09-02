@@ -25,8 +25,8 @@
 #define dcm_o_included
 
 #include "YSI\y_xml"
-#include "sscanf2"
-#include "streamer"
+#tryinclude "sscanf2"
+#tryinclude "streamer"
 
 #if !defined MAX_MAPS
 	#define MAX_MAPS 100
