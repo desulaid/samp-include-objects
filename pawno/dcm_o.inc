@@ -25,6 +25,8 @@
 #define dcm_o_included
 
 #include "YSI\y_xml"
+#include "YSI\y_stringhash"
+
 #tryinclude "sscanf2"
 #tryinclude "streamer"
 
