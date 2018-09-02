@@ -15,6 +15,7 @@ public OnGameModeInit()
 	map = LoadFromMapFile("PATH_TO_MAP_FILE");
 	DestroyMap(map);
 }
+
 public OnMapLoad(mapid, objectid, bool:dynamic)
 {
 	printf("[CREATED] mapid: %d, objectid: %d, dynamic: %d", mapid, objectid, _:dynamic);
