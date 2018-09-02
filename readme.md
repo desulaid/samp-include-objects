@@ -2,7 +2,6 @@
 This library will allow you to load MTA map files without converting.
 
 ### Uses
-Loading:
 ```pwn
 public OnGameModeInit()
 {
