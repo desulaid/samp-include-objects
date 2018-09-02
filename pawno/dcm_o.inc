@@ -196,6 +196,7 @@ public DCMO_OnMapLoad()
 				pos_rx,
 				pos_ry,
 				pos_rz,
+				.worldid = dimension,
 				.interiorid = interior
 			);
 		#endif
