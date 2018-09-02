@@ -19,15 +19,14 @@
 
 #include <a_samp>
 
+#if defined dcm_o_included
+	#endinput
+#endif
+#define dcm_o_included
+
 #include "YSI\y_xml"
 #include "sscanf2"
 #include "streamer"
-
-#if defined st_mapobjects
-	#endinput
-#endif
-
-#define st_mapobjects
 
 #if !defined MAX_MAPS
 	#define MAX_MAPS 100
@@ -65,13 +64,13 @@ stock
 	new
 		XML:file = XML_New();
 		
-	XML_AddHandler(file, "object", "ST_OnMapLoad");
+	XML_AddHandler(file, "object", "DCMO_OnMapLoad");
 	XML_Parse(file, path);
 	return map_id++;
 }
 
-public ST_OnMapLoad();
-public ST_OnMapLoad()
+public DCMO_OnMapLoad();
+public DCMO_OnMapLoad()
 {
 	static
 		key[MAX_XML_ENTRY_NAME],
