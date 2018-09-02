@@ -32,6 +32,14 @@
 	#define MAX_MAPS 100
 #endif
 
+#if defined OnMapLoad
+	forward OnMapLoad(mapid, objectid, bool:dynamic);
+#endif
+
+#if defined OnMapDestroy
+	forward OnMapDestroy(mapid, objectid, bool:dynamic);
+#endif
+
 static const
 	MAP_OBJECT_COUNT = 0,
 	MAP_LAST_OBJECT_ID = 1;
@@ -46,12 +54,21 @@ stock
 	if (map_data[mapid][MAP_OBJECT_COUNT] == -1)
 		return 0;
 
+	new objectid;
+	
 	for (new i = map_data[mapid][MAP_OBJECT_COUNT]; i > -1; i--)
 	{
+		objectid = map_data[mapid][MAP_LAST_OBJECT_ID] - i;
 		#if !defined _streamer_included
-			DestroyObject(map_data[mapid][MAP_LAST_OBJECT_ID] - i);
+			DestroyObject(objectid);
+			#if defined OnMapDestroy
+				OnMapDestroy(mapid, objectid, false);
+			#endif
 		#else
-			DestroyDynamicObject(map_data[mapid][MAP_LAST_OBJECT_ID] - i);
+			DestroyDynamicObject(objectid);
+			#if defined OnMapDestroy
+				OnMapDestroy(mapid, objectid, true);
+			#endif
 		#endif
 	}
 	map_data[map_id][MAP_LAST_OBJECT_ID] = -1;
@@ -87,7 +104,7 @@ public DCMO_OnMapLoad()
 		Float:pos_rx,
 		Float:pos_ry,
 		Float:pos_rz;
-		
+
 	while (XML_GetKeyValue(key, val))
 	{
 		if (!strcmp(key, "rotX", false))
@@ -170,15 +187,19 @@ public DCMO_OnMapLoad()
 				sscanf(val, "i", doublesided);
 			#endif
 		}
-
+		
+		static objectid;
+		
 		map_data[map_id][MAP_OBJECT_COUNT]++;
 
 		#pragma unused dimension
 		#pragma unused interior
 		#pragma unused doublesided
 
+		#pragma unused objectid
+		
 		#if !defined _streamer_included
-			map_data[map_id][MAP_LAST_OBJECT_ID] = CreateObject(
+			objectid = map_data[map_id][MAP_LAST_OBJECT_ID] = CreateObject(
 				model,
 				pos_x,
 				pos_y,
@@ -187,8 +208,11 @@ public DCMO_OnMapLoad()
 				pos_ry,
 				pos_rz
 			);
+			#if defined OnMapLoad
+				OnMapLoad(map_id, objectid, false);
+			#endif
 		#else
-			map_data[map_id][MAP_LAST_OBJECT_ID] = CreateDynamicObject(
+			objectid = map_data[map_id][MAP_LAST_OBJECT_ID] = CreateDynamicObject(
 				model,
 				pos_x,
 				pos_y,
@@ -199,6 +223,9 @@ public DCMO_OnMapLoad()
 				.worldid = dimension,
 				.interiorid = interior
 			);
+			#if defined OnMapLoad
+				OnMapLoad(map_id, objectid, true);
+			#endif
 		#endif
 	}
 	return 1;
