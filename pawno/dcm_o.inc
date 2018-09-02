@@ -90,118 +90,115 @@ public DCMO_OnMapLoad()
 		
 	while (XML_GetKeyValue(key, val))
 	{
-		while (XML_GetKeyValue(key, val))
+		if (!strcmp(key, "rotX", false))
 		{
-			if (!strcmp(key, "rotX", false))
-			{
-				#if !defined sscanf
-					pos_rx = floatstr(val);
-				#else
-					sscanf(val, "f", pos_rx);
-				#endif
-			}
-			if (!strcmp(key, "rotY", false))
-			{
-				#if !defined sscanf
-					pos_ry = floatstr(val);
-				#else
-					sscanf(val, "f", pos_ry);
-				#endif
-			}
-			if (!strcmp(key, "rotZ", false))
-			{
-				#if !defined sscanf
-					pos_rz = floatstr(val);
-				#else
-					sscanf(val, "f", pos_rz);
-				#endif
-			}
-			if (!strcmp(key, "posX", false))
-			{
-				#if !defined sscanf
-					pos_x = floatstr(val);
-				#else
-					sscanf(val, "f", pos_x);
-				#endif
-			}
-			if (!strcmp(key, "posY", false))
-			{
-				#if !defined sscanf
-					pos_y = floatstr(val);
-				#else
-					sscanf(val, "f", pos_y);
-				#endif
-			}
-			if (!strcmp(key, "posZ", false))
-			{
-				#if !defined sscanf
-					pos_z = floatstr(val);
-				#else
-					sscanf(val, "f", pos_z);
-				#endif
-			}
-			if (!strcmp(key, "dimension", false))
-			{
-				#if !defined sscanf
-					dimension = strval(val);
-				#else
-					sscanf(val, "i", dimension);
-				#endif
-			}
-			if (!strcmp(key, "interior", false))
-			{
-				#if !defined sscanf
-					interior = strval(val);
-				#else
-					sscanf(val, "i", interior);
-				#endif
-			}
-			if (!strcmp(key, "model", false))
-			{
-				#if !defined sscanf
-					model = strval(val);
-				#else
-					sscanf(val, "i", model);
-				#endif
-			}
-			if (!strcmp(key, "doublesided", false))
-			{
-				#if !defined sscanf
-					doublesided = strval(val);
-				#else
-					sscanf(val, "i", doublesided);
-				#endif
-			}
-			
-			map_data[map_id][MAP_OBJECT_COUNT]++;
-
-			#pragma unused dimension
-			#pragma unused interior
-			#pragma unused doublesided
-
-			#if !defined _streamer_included
-				map_data[map_id][MAP_LAST_OBJECT_ID] = CreateObject(
-					model,
-					pos_x,
-					pos_y,
-					pos_z,
-					pos_rx,
-					pos_ry,
-					pos_rz
-				);
+			#if !defined sscanf
+				pos_rx = floatstr(val);
 			#else
-				map_data[map_id][MAP_LAST_OBJECT_ID] = CreateDynamicObject(
-					model,
-					pos_x,
-					pos_y,
-					pos_z,
-					pos_rx,
-					pos_ry,
-					pos_rz,
-					.interiorid = interior
-				);
+				sscanf(val, "f", pos_rx);
 			#endif
 		}
+		if (!strcmp(key, "rotY", false))
+		{
+			#if !defined sscanf
+				pos_ry = floatstr(val);
+			#else
+				sscanf(val, "f", pos_ry);
+			#endif
+		}
+		if (!strcmp(key, "rotZ", false))
+		{
+			#if !defined sscanf
+				pos_rz = floatstr(val);
+			#else
+				sscanf(val, "f", pos_rz);
+			#endif
+		}
+		if (!strcmp(key, "posX", false))
+		{
+			#if !defined sscanf
+				pos_x = floatstr(val);
+			#else
+				sscanf(val, "f", pos_x);
+			#endif
+		}
+		if (!strcmp(key, "posY", false))
+		{
+			#if !defined sscanf
+				pos_y = floatstr(val);
+			#else
+				sscanf(val, "f", pos_y);
+			#endif
+		}
+		if (!strcmp(key, "posZ", false))
+		{
+			#if !defined sscanf
+				pos_z = floatstr(val);
+			#else
+				sscanf(val, "f", pos_z);
+			#endif
+		}
+		if (!strcmp(key, "dimension", false))
+		{
+			#if !defined sscanf
+				dimension = strval(val);
+			#else
+				sscanf(val, "i", dimension);
+			#endif
+		}
+		if (!strcmp(key, "interior", false))
+		{
+			#if !defined sscanf
+				interior = strval(val);
+			#else
+				sscanf(val, "i", interior);
+			#endif
+		}
+		if (!strcmp(key, "model", false))
+		{
+			#if !defined sscanf
+				model = strval(val);
+			#else
+				sscanf(val, "i", model);
+			#endif
+		}
+		if (!strcmp(key, "doublesided", false))
+		{
+			#if !defined sscanf
+				doublesided = strval(val);
+			#else
+				sscanf(val, "i", doublesided);
+			#endif
+		}
+
+		map_data[map_id][MAP_OBJECT_COUNT]++;
+
+		#pragma unused dimension
+		#pragma unused interior
+		#pragma unused doublesided
+
+		#if !defined _streamer_included
+			map_data[map_id][MAP_LAST_OBJECT_ID] = CreateObject(
+				model,
+				pos_x,
+				pos_y,
+				pos_z,
+				pos_rx,
+				pos_ry,
+				pos_rz
+			);
+		#else
+			map_data[map_id][MAP_LAST_OBJECT_ID] = CreateDynamicObject(
+				model,
+				pos_x,
+				pos_y,
+				pos_z,
+				pos_rx,
+				pos_ry,
+				pos_rz,
+				.interiorid = interior
+			);
+		#endif
 	}
 	return 1;
 }
